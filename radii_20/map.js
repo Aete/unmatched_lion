@@ -16,19 +16,26 @@ let map = new mapboxgl.Map({
 map.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
 // set variables for file addresses
-const urlUnmatched511 = 'data/511_filtered.unmatched_20.geojson';
+const urlUnmatchedLion1 = 'data/lion_street_filtered_0_60000.unmatched.geojson';
+const urlUnmatchedLion2 = 'data/lion_street_filtered_60000_120000.unmatched.geojson';
+const urlUnmatchedLion3 = 'data/lion_street_filtered_120000_.unmatched.geojson';
+
 const urlShstSegment = 'data/shst_segment.geojson';
 
 map.on('load', function () {
 
     // get source from url
     window.setInterval(function() {
-        map.getSource('511').setData(urlUnmatched511);
+        map.getSource('lion1').setData(urlUnmatchedLion1);
+        map.getSource('lion2').setData(urlUnmatchedLion2);
+        map.getSource('lion3').setData(urlUnmatchedLion3);
         map.getSource('shst').setData(urlShstSegment)
     }, 2000);
 
     // add sources to the Map
-    map.addSource('511', { type: 'geojson', data:urlUnmatched511, 'generateId': false});
+    map.addSource('lion1', { type: 'geojson', data:urlUnmatchedLion1, 'generateId': false});
+    map.addSource('lion2', { type: 'geojson', data:urlUnmatchedLion2, 'generateId': false});
+    map.addSource('lion3', { type: 'geojson', data:urlUnmatchedLion3, 'generateId': false});
     map.addSource('shst', { type: 'geojson', data:urlShstSegment, 'generateId': false});
 
     // add a layer and set properties
@@ -46,14 +53,46 @@ map.on('load', function () {
         }
     });
 
-
     map.addLayer({
-        "id": "511",
-        "source": "511",
-        "type": "circle",
+        "id": "lion1",
+        "source": "lion1",
+        "type": "line",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
         "paint": {
-            "circle-color": "#F44336",
-            "circle-radius":4
+            "line-color": '#F44336',
+            "line-width": 2,
         }
     });
+
+    map.addLayer({
+        "id": "lion2",
+        "source": "lion2",
+        "type": "line",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": '#F44336',
+            "line-width": 2,
+        }
+    });
+
+    map.addLayer({
+        "id": "lion3",
+        "source": "lion3",
+        "type": "line",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": '#F44336',
+            "line-width": 2,
+        }
+    });
+
 });
